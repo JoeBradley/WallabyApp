@@ -3,24 +3,27 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:5000",
+      "applicationUrl": "http://localhost:5001",
       "sslPort": 0
     }
   },
   "profiles": {
     "IIS Express": {
-      "commandName": "Project",
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:5000/"
+      }
     },
-    "ITI.IdenitityServer": {
+    "WallabyApi": {
       "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:17344/"
+      "applicationUrl": "http://localhost:18059/"
     }
   }
 }
