@@ -33,7 +33,7 @@ namespace WallabyApi
                     options.Authority = "http://localhost:5000";
                     options.RequireHttpsMetadata = false;
 
-                    options.ApiName = "User.Read";
+                    options.ApiName = "Identity";
                 });
         }
 

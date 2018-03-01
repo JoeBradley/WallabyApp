@@ -15,8 +15,23 @@ namespace ITI.IdenitityServer
         {
             return new List<ApiResource>
             {
-                new ApiResource("User.Read", "Read user accounts"),
-                new ApiResource("User.Write", "Modify user accounts"),
+                new ApiResource("Identity", "API Identity"),
+                new ApiResource("User", "User accounts") {
+                    Scopes =
+                    {
+                        new Scope()
+                        {
+                            Name = "user.full_access",
+                            DisplayName = "Full read/write access to User API"
+                        },
+                        new Scope
+                        {
+                            Name = "user.read_only",
+                            DisplayName = "Read only access to User API"
+                        }
+                    }
+                },
+                new ApiResource("Products", "Company Products"),
             };
         }
 
@@ -36,6 +51,7 @@ namespace ITI.IdenitityServer
 
             return new List<Client>
             {
+                // API Client (Wallaby Console Client)
                 new Client
                 {
                     ClientId = client_id,
@@ -52,6 +68,8 @@ namespace ITI.IdenitityServer
                     // scopes that client has access to
                     AllowedScopes = GetApiResources().Select(x => x.Name).ToList()
                 },
+
+                // Resource Owner client
                 new Client
                 {
                     ClientId = "ro.client",
@@ -61,8 +79,10 @@ namespace ITI.IdenitityServer
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = GetApiResources().Select(x => x.Name).ToList()
+                    AllowedScopes = GetApiResources().Where(x => x.Name == "Identity" || x.Name == "User").SelectMany(x => x.Scopes.Select(s => s.Name)).ToList()
                 },
+
+                // MVC Client (Wallaby Web Client)
                 new Client
                 {
                     ClientId = "mvc",
